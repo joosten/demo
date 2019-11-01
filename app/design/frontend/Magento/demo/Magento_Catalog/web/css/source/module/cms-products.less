@@ -1,0 +1,32 @@
+& when (@media-common = true) {
+  .block.widget {
+    .products-grid {
+      .product-item {
+        // three products per row, regardless of width, ~ so it doesn't parse the output as a flat percentage,
+        // !important for brevity.
+        width: calc(~'(100% - 4%)/3') !important;
+        // hide everything past first three products
+        &:nth-child(n+4) {
+          display: none;
+        }
+        &:nth-child(2){
+          // hides content of middle (second) child, CSS can't determine context and thus can't establish whether an
+          // element is the "middle". Since we know we'll only show 3 products, we hardcode the second child.
+          @media all and (min-width : @break-demo-1000) and (max-width : @break-demo-1200) {
+            .product-item-info {
+              display: none;
+            }
+          }
+        }
+        .product-item-info {
+          // on hover, hides all content except image and item name.
+          &:hover {
+            .product-item-details > div:not(.product-item-name) {
+                display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
